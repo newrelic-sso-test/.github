@@ -1,0 +1,4 @@
+{
+    "name": "FOSSA Workflow",
+    "description": "Use FOSSA in CI. Run FOSSA Scan and Test on push and PR to the default branch. "
+}
