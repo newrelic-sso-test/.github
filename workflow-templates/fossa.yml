@@ -12,7 +12,8 @@ jobs:
     steps:
       - name: "Checkout Code"
         uses: actions/checkout@v3
-
+        
+    # use FOSSA CLI directly for custom policy, teams, project title, etc. 
       - name: "Run FOSSA Scan"
         uses: fossas/fossa-action@main # Use a specific version if locking is preferred
         with:
