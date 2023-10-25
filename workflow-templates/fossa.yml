@@ -1,25 +1,26 @@
-name: FOSSA CI
-
+name: FOSSA CLI Analysis + Test
 on:
   push:
     branches: [ $default-branch ]
   pull_request:
     branches: [ $default-branch ]
+  workflow_dispatch:
 
 jobs:
-  fossa-scan:
+  fossa:
     runs-on: ubuntu-latest
+    env:
+      FOSSA_API_KEY: ${{secrets.FOSSA_API_KEY}}
+
+    strategy:
+      fail-fast: false
+
     steps:
-      - name: "Checkout Code"
-        uses: actions/checkout@v3
-
-      - name: "Run FOSSA Scan"
-        uses: fossas/fossa-action@main # Use a specific version if locking is preferred
-        with:
-          api-key: ${{secrets.fossaApiKey}}
-
-      - name: "Run FOSSA Test"
-        uses: fossas/fossa-action@main # Use a specific version if locking is preferred
-        with:
-          api-key: ${{secrets.fossaApiKey}}
-          run-tests: true
+      - uses: actions/checkout@v3
+  
+      - name: Running FOSSA CLI
+        run: |
+          curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install-latest.sh | bash
+          fossa --version
+          fossa analyze
+          fossa test
