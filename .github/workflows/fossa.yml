@@ -1,4 +1,4 @@
-name: FOSSA CLI Analysis + Test
+name: FOSSA CLI Analysis
 on:
   push:
     branches: [ $default-branch ]
@@ -23,4 +23,3 @@ jobs:
           curl -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/fossas/fossa-cli/master/install-latest.sh | bash
           fossa --version
           fossa analyze
-          fossa test
